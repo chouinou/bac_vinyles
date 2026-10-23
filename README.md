@@ -3,7 +3,7 @@
   <img src="assets/logo.png" alt="logo" width="200" height="auto" />
   <h1>Le Bac à Vinyles eshop website</h1>
   
-  <p> A vinyl seller wants a website for his shop. He wants his catalog to be displayed with all the differents products stored in a database. </p>>
+  <p> A vinyl seller wants a website for his shop. He wants his catalog to be displayed with all the differents products stored in a database. </p>
   <p> Users can register, log in and add products to their online shopping cart. </p>
   <p> Admin has access to a dashboard and can add some more products. </p>
 </div>
