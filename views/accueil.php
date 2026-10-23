@@ -152,8 +152,8 @@
         </section>
 
         <section class="stats">
-            <div class="stat"><strong>12</strong><span>références</span></div>
-            <div class="stat"><strong>49</strong><span>disques en stock</span></div>
+            <div class="stat"><strong><?= count($all_vinyles) ?></strong><span>références</span></div>
+            <div class="stat"><strong><?= $total_stock ?></strong><span>disques en stock</span></div>
             <div class="stat"><strong>5</strong><span>genres</span></div>
         </section>
 
@@ -163,55 +163,37 @@
                 <a href="/catalogue">Tout voir →</a>
             </div>
             <div class="grille">
-                                                        <a class="carte" href="/vinyle/1">
-                        <div class="pochette" style="--couleur: #2b5f8a"><span class="pochette-titre">Kind of Blue</span></div>
-                        <div class="carte-infos">
-                            <span class="genre">jazz · 1959</span>
-                            <h3>Kind of Blue</h3>
-                            <p class="artiste">Miles Davis</p>
-                            <div class="carte-bas">
-                                <strong class="prix">25 €</strong>
-                                                                    <span class="badge badge--ok">En stock</span>
-                                                            </div>
-                        </div>
-                    </a>
-                                                        <a class="carte" href="/vinyle/2">
-                        <div class="pochette" style="--couleur: #b7864a"><span class="pochette-titre">Rumours</span></div>
-                        <div class="carte-infos">
-                            <span class="genre">rock · 1977</span>
-                            <h3>Rumours</h3>
-                            <p class="artiste">Fleetwood Mac</p>
-                            <div class="carte-bas">
-                                <strong class="prix">30 €</strong>
-                                                                    <span class="badge badge--ok">En stock</span>
-                                                            </div>
-                        </div>
-                    </a>
-                                                        <a class="carte" href="/vinyle/3">
-                        <div class="pochette" style="--couleur: #1d1d1d"><span class="pochette-titre">Random Access Memories</span></div>
-                        <div class="carte-infos">
-                            <span class="genre">electro · 2013</span>
-                            <h3>Random Access Memories</h3>
-                            <p class="artiste">Daft Punk</p>
-                            <div class="carte-bas">
-                                <strong class="prix">40 €</strong>
-                                                                    <span class="badge badge--bientot">Plus que 2 !</span>
-                                                            </div>
-                        </div>
-                    </a>
-                                                        <a class="carte" href="/vinyle/4">
-                        <div class="pochette" style="--couleur: #5a7d3a"><span class="pochette-titre">What's Going On</span></div>
-                        <div class="carte-infos">
-                            <span class="genre">soul · 1971</span>
-                            <h3>What's Going On</h3>
-                            <p class="artiste">Marvin Gaye</p>
-                            <div class="carte-bas">
-                                <strong class="prix">27 €</strong>
-                                                                    <span class="badge badge--epuise">Épuisé</span>
-                                                            </div>
-                        </div>
-                    </a>
-                            </div>
+            <!-- LOOP THAT SHOWS THE FIRST 4 VINYLES IN DATA -->
+            <?php for ($i = 0; $i < 4; $i ++) { ?>    
+                <a class="carte" href="/vinyle/<?= $i ?>">
+                <div class="pochette" style="--couleur: <?= $all_vinyles[$i]['couleur'] ?>"><span class="pochette-titre"> <?= $all_vinyles[$id]['titre'] ?></span></div>
+                <div class="carte-infos">
+                    <span class="genre"><?= $all_vinyles[$i]['genre']?> · <?= $all_vinyles[$i]['annee'] ?></span>
+                    <h3><?= $all_vinyles[$i]['titre'] ?></h3>
+                    <p class="artiste"><?= $all_vinyles[$i]['artiste'] ?></p>
+                    <div class="carte-bas">
+                        <strong class="prix"><?= $all_vinyles[$i]['prix'] ?> €</strong>
+                        <!-- CSS CLASS DEPENDING ON STOCK -->
+                         <?php 
+                         $tmp_stock = $all_vinyles[$i]['stock'];
+                         if ($tmp_stock == 0) {
+                            $innerCSSBadge = "badge--epuise" ;
+                            $stock_status = "Épuisé";
+                         }
+                         elseif (($tmp_stock == 1) || ($tmp_stock == 2)) {
+                            $innerCSSBadge = "badge--bientot"; 
+                            $stock_status = "Plus que $tmp_stock !";
+                         }
+                         else {
+                            $innerCSSBadge = "badge--ok";
+                            $stock_status = "En stock";
+                         }
+                         ?>
+                        <span class="badge <?= $innerCSSBadge ?>"> <?= $stock_status ?> </span>
+                    </div>
+                </div>
+            <?php } ; ?>
+            </div>
         </section>
 
         <section class="panneau hasard">

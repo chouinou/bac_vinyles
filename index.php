@@ -30,6 +30,10 @@ if ($match !== false && is_callable($match['target'])) {
 // ----- FUNCTIONS -----
 
 function accueil() {
+    $all_vinyles = require_once(__DIR__ . "/data/vinyles.php");
+    foreach ($all_vinyles as $a_vinyle) {
+        $total_stock += $a_vinyle['stock'] ;
+    }
     require_once(__DIR__ . "/views/accueil.php");
 }
 
