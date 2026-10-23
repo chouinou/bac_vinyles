@@ -149,6 +149,13 @@
                 <p class="flash flash--succes">Ton compte est créé, tu peux te connecter.</p>
             <?php endif; ?>
 
+            <?php if (isset($_GET['erreur'])): ?>
+                <?php if ($_GET['erreur'] == '1'): ?>
+                    <p class="flash flash--erreur">Email ou mot de passe incorrect</p>
+                <?php endif; ?>
+            <?php endif; ?>
+
+
             <form action="/auth" method="post">
                 <label for="email">Adresse e-mail
                     <input id="email" name="email" type="email" placeholder="alex@exemple.fr" required>

@@ -39,4 +39,13 @@ return array (
     'role' => 'user',
     'date_inscription' => '2026-10-23 13:28:31',
   ),
+  6 => 
+  array (
+    'id' => 7,
+    'nom' => 'Romain le vrai',
+    'email' => 'romain@levrai.fr',
+    'mot_de_passe' => '$2y$10$tcc5cjBXaM12IFcbqZZeJOWOx/hwJ8XtZwR3KPl5XG5N/Ctv9pmea',
+    'role' => 'user',
+    'date_inscription' => '2026-10-23 14:40:52',
+  ),
 );

@@ -20,6 +20,9 @@ $router->map('GET', '/panier', 'panier');
 $router->map('GET', '/admin', 'admin');
 
 $router->map('POST', '/register', 'register_user');
+$router->map('POST', '/auth', 'authentification');
+
+$router->map('GET', '/deconnexion', 'deconnexion');
 
 $match = $router->match();
 if ($match !== false && is_callable($match['target'])) {
@@ -88,6 +91,41 @@ function connexion() {
     require_once(__DIR__ . "/views/connexion.php");
 }
 
+function deconnexion(){
+    session_unset();
+    require_once(__DIR__ . "/views/accueil.php");
+}
+
+function authentification() {
+    // ---- VARS ----
+    $all_users = require_once(__DIR__ . "/data/utilisateurs.php");
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    // ---- MATCHING LOGS CHECK ----
+    foreach ($all_users as $a_user) {
+        if ($a_user['email'] === $email && password_verify($password, $a_user['mot_de_passe'])) {
+            
+            $_SESSION['is_authenticated'] = true;
+            $_SESSION['user_email'] = $a_user['email'];
+            $_SESSION['user_nom'] = $a_user['nom'];
+            $_SESSION['user_role'] = $a_user['role'];
+
+            if ($a_user['role'] === 'admin') {
+                header('Location: /admin');
+                return;
+            } else {
+                header('Location: /catalogue');
+                return;
+            }
+        }
+        else {
+            header('Location: /connexion?erreur=1');
+            return;
+        }
+    }
+}
+
 function inscription() {
     require_once(__DIR__ . "/views/inscription.php");
 }
@@ -138,6 +176,10 @@ function register_user(){
     
     header('Location: /connexion?inscrit=1');
 }
+
+// function admin(){
+//     require_once(__DIR__ . "/views/admin.php");
+// }
 
 function erreur() {
     require_once(__DIR__ . "/views/404.php");
