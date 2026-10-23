@@ -154,11 +154,11 @@
             <label>Genre
                 <select name="genre">
                     <option value="">Tous les genres</option>
-                    <option value="rock" >Rock</option>
-                    <option value="jazz" >Jazz</option>
-                    <option value="soul" >Soul</option>
-                    <option value="hip-hop" >Hip-hop</option>
-                    <option value="electro" >Électro</option>
+                    <option value="rock" <?= $genre == 'rock' ? 'selected' : '' ?>>Rock</option>
+                    <option value="jazz" <?= $genre == 'jazz' ? 'selected' : '' ?>>Jazz</option>
+                    <option value="soul" <?= $genre == 'soul' ? 'selected' : '' ?>>Soul</option>
+                    <option value="hip-hop" <?= $genre == 'hip-hop' ? 'selected' : '' ?>>Hip-hop</option>
+                    <option value="electro" <?= $genre == 'electro' ? 'selected' : '' ?>>Électro</option>
                 </select>
             </label>
             <button type="submit" class="bouton">Filtrer</button>
@@ -166,7 +166,7 @@
         </form>
 
         <div class="barre-resultats">
-            <p class="resultats">12 vinyle(s) trouvé(s)</p>
+            <p class="resultats"> <?= count($resultats) ?> vinyle(s) trouvé(s)</p>
             <!-- Tri : fait en JavaScript, sans recharger la page -->
             <select id="tri">
                 <option value="defaut">Trier : par défaut</option>
@@ -176,151 +176,41 @@
         </div>
 
         <div class="grille">
-                            <a class="carte" href="/vinyle/1" data-prix="25">
-                    <div class="pochette" style="--couleur: #2b5f8a"><span class="pochette-titre">Kind of Blue</span></div>
-                    <div class="carte-infos">
-                        <span class="genre">jazz · 1959</span>
-                        <h3>Kind of Blue</h3>
-                        <p class="artiste">Miles Davis</p>
-                        <div class="carte-bas">
-                            <strong class="prix">25 €</strong>
-                                                            <span class="badge badge--ok">En stock</span>
-                                                    </div>
-                    </div>
-                </a>
-                            <a class="carte" href="/vinyle/2" data-prix="30">
-                    <div class="pochette" style="--couleur: #b7864a"><span class="pochette-titre">Rumours</span></div>
-                    <div class="carte-infos">
-                        <span class="genre">rock · 1977</span>
-                        <h3>Rumours</h3>
-                        <p class="artiste">Fleetwood Mac</p>
-                        <div class="carte-bas">
-                            <strong class="prix">30 €</strong>
-                                                            <span class="badge badge--ok">En stock</span>
-                                                    </div>
-                    </div>
-                </a>
-                            <a class="carte" href="/vinyle/3" data-prix="40">
-                    <div class="pochette" style="--couleur: #1d1d1d"><span class="pochette-titre">Random Access Memories</span></div>
-                    <div class="carte-infos">
-                        <span class="genre">electro · 2013</span>
-                        <h3>Random Access Memories</h3>
-                        <p class="artiste">Daft Punk</p>
-                        <div class="carte-bas">
-                            <strong class="prix">40 €</strong>
-                                                            <span class="badge badge--bientot">Plus que 2 !</span>
-                                                    </div>
-                    </div>
-                </a>
-                            <a class="carte" href="/vinyle/4" data-prix="27">
-                    <div class="pochette" style="--couleur: #5a7d3a"><span class="pochette-titre">What's Going On</span></div>
-                    <div class="carte-infos">
-                        <span class="genre">soul · 1971</span>
-                        <h3>What's Going On</h3>
-                        <p class="artiste">Marvin Gaye</p>
-                        <div class="carte-bas">
-                            <strong class="prix">27 €</strong>
-                                                            <span class="badge badge--epuise">Épuisé</span>
-                                                    </div>
-                    </div>
-                </a>
-                            <a class="carte" href="/vinyle/5" data-prix="28">
-                    <div class="pochette" style="--couleur: #8a5a2b"><span class="pochette-titre">Illmatic</span></div>
-                    <div class="carte-infos">
-                        <span class="genre">hip-hop · 1994</span>
-                        <h3>Illmatic</h3>
-                        <p class="artiste">Nas</p>
-                        <div class="carte-bas">
-                            <strong class="prix">28 €</strong>
-                                                            <span class="badge badge--ok">En stock</span>
-                                                    </div>
-                    </div>
-                </a>
-                            <a class="carte" href="/vinyle/6" data-prix="32">
-                    <div class="pochette" style="--couleur: #3f7cac"><span class="pochette-titre">Abbey Road</span></div>
-                    <div class="carte-infos">
-                        <span class="genre">rock · 1969</span>
-                        <h3>Abbey Road</h3>
-                        <p class="artiste">The Beatles</p>
-                        <div class="carte-bas">
-                            <strong class="prix">32 €</strong>
-                                                            <span class="badge badge--ok">En stock</span>
-                                                    </div>
-                    </div>
-                </a>
-                            <a class="carte" href="/vinyle/7" data-prix="35">
-                    <div class="pochette" style="--couleur: #c43c5c"><span class="pochette-titre">Discovery</span></div>
-                    <div class="carte-infos">
-                        <span class="genre">electro · 2001</span>
-                        <h3>Discovery</h3>
-                        <p class="artiste">Daft Punk</p>
-                        <div class="carte-bas">
-                            <strong class="prix">35 €</strong>
-                                                            <span class="badge badge--ok">En stock</span>
-                                                    </div>
-                    </div>
-                </a>
-                            <a class="carte" href="/vinyle/8" data-prix="23">
-                    <div class="pochette" style="--couleur: #6b6b6b"><span class="pochette-titre">A Love Supreme</span></div>
-                    <div class="carte-infos">
-                        <span class="genre">jazz · 1965</span>
-                        <h3>A Love Supreme</h3>
-                        <p class="artiste">John Coltrane</p>
-                        <div class="carte-bas">
-                            <strong class="prix">23 €</strong>
-                                                            <span class="badge badge--bientot">Plus que 1 !</span>
-                                                    </div>
-                    </div>
-                </a>
-                            <a class="carte" href="/vinyle/9" data-prix="26">
-                    <div class="pochette" style="--couleur: #a83232"><span class="pochette-titre">Back to Black</span></div>
-                    <div class="carte-infos">
-                        <span class="genre">soul · 2006</span>
-                        <h3>Back to Black</h3>
-                        <p class="artiste">Amy Winehouse</p>
-                        <div class="carte-bas">
-                            <strong class="prix">26 €</strong>
-                                                            <span class="badge badge--ok">En stock</span>
-                                                    </div>
-                    </div>
-                </a>
-                            <a class="carte" href="/vinyle/10" data-prix="29">
-                    <div class="pochette" style="--couleur: #d14b3c"><span class="pochette-titre">The Low End Theory</span></div>
-                    <div class="carte-infos">
-                        <span class="genre">hip-hop · 1991</span>
-                        <h3>The Low End Theory</h3>
-                        <p class="artiste">A Tribe Called Quest</p>
-                        <div class="carte-bas">
-                            <strong class="prix">29 €</strong>
-                                                            <span class="badge badge--epuise">Épuisé</span>
-                                                    </div>
-                    </div>
-                </a>
-                            <a class="carte" href="/vinyle/11" data-prix="32">
-                    <div class="pochette" style="--couleur: #e0b13a"><span class="pochette-titre">Homework</span></div>
-                    <div class="carte-infos">
-                        <span class="genre">electro · 1997</span>
-                        <h3>Homework</h3>
-                        <p class="artiste">Daft Punk</p>
-                        <div class="carte-bas">
-                            <strong class="prix">32 €</strong>
-                                                            <span class="badge badge--ok">En stock</span>
-                                                    </div>
-                    </div>
-                </a>
-                            <a class="carte" href="/vinyle/12" data-prix="24">
-                    <div class="pochette" style="--couleur: #3aa0c8"><span class="pochette-titre">Nevermind</span></div>
-                    <div class="carte-infos">
-                        <span class="genre">rock · 1991</span>
-                        <h3>Nevermind</h3>
-                        <p class="artiste">Nirvana</p>
-                        <div class="carte-bas">
-                            <strong class="prix">24 €</strong>
-                                                            <span class="badge badge--ok">En stock</span>
-                                                    </div>
-                    </div>
-                </a>
-                    </div>
+        <?php if (empty($resultats)): ?>
+            <p class="vide">Aucun vinyle ne correspond à ta recherche.</p>
+        <?php else: ?>
+            <?php foreach ($resultats as $a_vinyle) { ?>
+            <a class="carte" href="/vinyle/<?= $a_vinyle['id'] ?>1" data-prix="25">
+            <div class="pochette" style="--couleur:<?= $a_vinyle['couleur'] ?>"><span class="pochette-titre"><?= $all_vinyles[$id]['titre'] ?></span></div>
+            <div class="carte-infos">
+                <span class="genre"><?= $a_vinyle['genre']?> · <?= $a_vinyle['annee'] ?></span>
+                <h3><?= $a_vinyle['titre'] ?></h3>
+                <p class="artiste"><?= $a_vinyle['artiste'] ?></p>
+                <div class="carte-bas">
+                    <strong class="prix"><?= $a_vinyle['prix'] ?> €</strong>
+                    <!-- CSS CLASS DEPENDING ON STOCK -->
+                        <?php 
+                        $tmp_stock = $a_vinyle['stock'];
+                        if ($tmp_stock == 0) {
+                        $innerCSSBadge = "badge--epuise" ;
+                        $stock_status = "Épuisé";
+                        }
+                        elseif (($tmp_stock == 1) || ($tmp_stock == 2)) {
+                        $innerCSSBadge = "badge--bientot"; 
+                        $stock_status = "Plus que $tmp_stock !";
+                        }
+                        else {
+                        $innerCSSBadge = "badge--ok";
+                        $stock_status = "En stock";
+                        }
+                        ?>
+                    <span class="badge <?= $innerCSSBadge ?>"> <?= $stock_status ?> </span>
+                </div>
+            </div>
+            </a>
+            <?php } ; ?>
+        </div>
+        <?php endif ?>
     </main>
     <?php require __DIR__ . '/footer.php'; ?>
 </body>

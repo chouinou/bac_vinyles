@@ -38,6 +38,27 @@ function accueil() {
 }
 
 function catalogue() {
+    $all_vinyles = require_once(__DIR__ . "/data/vinyles.php");
+
+    // null coalescing that attribute a '' value in case $genre or $recherche == null *   
+    $genre = $_GET['genre'] ?? '' ;
+    $recherche = $_GET['recherche'] ?? '' ;
+    $resultats = [] ;
+    print_r($recherche);
+
+    stripos($a_vinyle['titre'] . " " . $a_vinyle['artiste'], $recherche) ;
+
+    // LOOP FILTER
+    foreach ($all_vinyles as $a_vinyle) {
+        if (($a_vinyle['genre'] == $genre) 
+            && (stripos($a_vinyle['titre'] . " " . $a_vinyle['artiste'], $recherche) != 0)) {
+            $resultats[] = $a_vinyle ;
+        }
+    }
+    if ((empty($resultats) == true) && ($genre == "") && ($recherche == "")) {
+        $resultats = $all_vinyles ;
+    }
+
     require_once(__DIR__ . "/views/catalogue.php");
 }
 
