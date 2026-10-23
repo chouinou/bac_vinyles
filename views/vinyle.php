@@ -193,5 +193,47 @@
         </div>
     </main>
     <?php require __DIR__ . '/footer.php'; ?>
+
+    <!-- JAVASCRIPT -->
+    <?php if ($the_vinyle['stock'] > 0) : ?>
+     <script>
+        // --- ELEMENTS ---
+        const countField = document.getElementById("compteur") ;
+        const quantityValue = document.getElementById("quantite") ;
+        const decreaseButton = document.getElementById("moins") ;
+        const increaseButton = document.getElementById("plus") ;
+        const totalField = document.getElementById("total") ;
+ 
+        // --- VARS ---
+        const stock = <?= $the_vinyle['stock'] ?>;
+        const prix = <?= $the_vinyle['prix'] ?>;
+        let count = 1 ;
+
+        // --- FUNCTIONS ---
+        function increaseCount() {
+            if (count < stock) {
+            count++ ;
+            updateFields();
+            }}
+
+        function decreaseCount() {
+            if (count > 1) {
+                count-- ;
+                updateFields();
+            }
+        }
+
+        function updateFields() {
+            countField.textContent = count ;
+            quantityValue.value = count ;
+            totalField.textContent = (count * prix) + "€" ;
+        }
+
+        // --- LISTENERS --
+        increaseButton.addEventListener('click', increaseCount);
+        decreaseButton.addEventListener('click', decreaseCount);
+    </script>
+    <?php endif; ?>.
 </body>
+
 </html>
