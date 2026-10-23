@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Abbey Road — Le Bac à Vinyles</title>
+    <title><?= $the_vinyle['titre'] ?> — Le Bac à Vinyles</title>
     <style>
         :root { --encre: #1f1a14; --encre-douce: #6f655a; --papier: #f4eee3; --carton: #e9dfcf; --blanc: #fffdf8; --accent: #e4572e; --accent-fonce: #b83d1a; --vert: #2f7d4f; --ambre: #c98a12; --rouge: #b42318; --ligne: #dccfbb; --rayon: 14px; --titre: "Georgia", "Times New Roman", serif; --texte: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif; }
         * { box-sizing: border-box; }
@@ -144,34 +144,52 @@
         <a class="lien-retour" href="/catalogue">← Retour au catalogue</a>
 
         <div class="fiche">
-            <div class="pochette pochette--grande" style="--couleur: #3f7cac">
-                <span class="pochette-titre">Abbey Road</span>
+            <div class="pochette pochette--grande" style="--couleur: <?= $the_vinyle['couleur'] ?>">
+                <span class="pochette-titre"><?= $the_vinyle['titre'] ?></span>
             </div>
 
             <div class="fiche-infos">
-                <p class="surtitre">rock · 1969</p>
-                <h1>Abbey Road</h1>
-                <p class="fiche-artiste">The Beatles</p>
-                <p class="fiche-prix">32 €</p>
-
-                                    <span class="badge badge--ok">En stock</span>
+                <p class="surtitre"><?= $the_vinyle['genre']?> · <?= $the_vinyle['annee'] ?></p>
+                <h1><?= $the_vinyle['titre'] ?></h1>
+                <p class="fiche-artiste"><?= $the_vinyle['artiste'] ?></p>
+                <p class="fiche-prix"><?= $the_vinyle['prix'] ?> €</p>
+                <?php 
+                        $tmp_stock = $the_vinyle['stock'];
+                        if ($tmp_stock == 0) {
+                        $innerCSSBadge = "badge--epuise" ;
+                        $stock_status = "Épuisé";
+                        }
+                        elseif (($tmp_stock == 1) || ($tmp_stock == 2)) {
+                        $innerCSSBadge = "badge--bientot"; 
+                        $stock_status = "Plus que $tmp_stock !";
+                        }
+                        else {
+                        $innerCSSBadge = "badge--ok";
+                        $stock_status = "En stock";
+                        }
+                        ?>
+                <span class="badge <?= $innerCSSBadge ?>"> <?= $stock_status ?> </span>
                 
                 <button type="button" id="btn-description" class="lien-bouton">Lire la description ↓</button>
-                <p id="description" class="fiche-description" style="display: none">Le dernier album enregistré par les Beatles, avec son célèbre medley en face B.</p>
+                <p id="description" class="fiche-description" style="display: none"><?= $the_vinyle['description'] ?></p>
 
-                                    <form class="ajout-panier" action="/panier/ajouter" method="post">
-                        <input type="hidden" name="id" value="6">
-                        <input type="hidden" name="quantite" id="quantite" value="1">
+                <form class="ajout-panier" action="/panier/ajouter" method="post">
+                    <input type="hidden" name="id" value="<?= $the_vinyle['id'] ?>">
+                    <input type="hidden" name="quantite" id="quantite" value="1">
 
-                        <div class="quantite" data-stock="3">
-                            <button type="button" id="moins">−</button>
-                            <span id="compteur">1</span>
-                            <button type="button" id="plus">+</button>
-                        </div>
-                        <button type="submit" class="bouton">Ajouter au panier</button>
-                        <p class="total-live">Total : <strong id="total" data-prix="32">32 €</strong></p>
-                    </form>
-                            </div>
+                    <div class="quantite" data-stock="<?= $the_vinyle['stock'] ?>">
+                        <button type="button" id="moins">−</button>
+                        <span id="compteur">1</span>
+                        <button type="button" id="plus">+</button>
+                    </div>
+                    <?php if ($the_vinyle['stock'] != 0) : ?>
+                    <button type="submit" class="bouton">Ajouter au panier</button>
+                    <?php else : ?>
+                    <p class="info">Ce disque est épuisé. Repasse bientôt !</p>
+                    <?php endif ?>
+                    <p class="total-live">Total : <strong id="total" data-prix="32">32 €</strong></p>
+                </form>
+            </div>
         </div>
     </main>
     <?php require __DIR__ . '/footer.php'; ?>

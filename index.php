@@ -69,7 +69,17 @@ function catalogue() {
 // CAREFUL HERE OF INDEXATION DIFF BETWEEN TABLE AND PRDUCTS NAME
 function vinyle($id) {
     $all_vinyles = require_once(__DIR__ . "/data/vinyles.php");
-    $vinyle = $all_vinyles[$id];
+    $the_vinyle = null ;
+    foreach ($all_vinyles as $a_vinyle) {
+        if ($a_vinyle['id'] == $id) {
+            $the_vinyle = $a_vinyle;
+            break;
+        }
+    }
+    if ($the_vinyle == null) {
+        http_response_code(404);
+        erreur();
+    }
     require_once(__DIR__ . "/views/vinyle.php");
 }
 

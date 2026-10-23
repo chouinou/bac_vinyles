@@ -165,7 +165,7 @@
             <div class="grille">
             <!-- LOOP THAT SHOWS THE FIRST 4 VINYLES IN DATA -->
             <?php for ($i = 0; $i < 4; $i ++) { ?>    
-                <a class="carte" href="/vinyle/<?= $i ?>">
+                <a class="carte" href="/vinyle/<?= $all_vinyles[$i]['id'] ?>">
                 <div class="pochette" style="--couleur: <?= $all_vinyles[$i]['couleur'] ?>"><span class="pochette-titre"> <?= $all_vinyles[$id]['titre'] ?></span></div>
                 <div class="carte-infos">
                     <span class="genre"><?= $all_vinyles[$i]['genre']?> · <?= $all_vinyles[$i]['annee'] ?></span>

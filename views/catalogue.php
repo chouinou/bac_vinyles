@@ -180,7 +180,7 @@
             <p class="vide">Aucun vinyle ne correspond à ta recherche.</p>
         <?php else: ?>
             <?php foreach ($resultats as $a_vinyle) { ?>
-            <a class="carte" href="/vinyle/<?= $a_vinyle['id'] ?>1" data-prix="25">
+            <a class="carte" href="/vinyle/<?= $a_vinyle['id'] ?>" data-prix="<?= $a_vinyle['prix'] ?>">
             <div class="pochette" style="--couleur:<?= $a_vinyle['couleur'] ?>"><span class="pochette-titre"><?= $all_vinyles[$id]['titre'] ?></span></div>
             <div class="carte-infos">
                 <span class="genre"><?= $a_vinyle['genre']?> · <?= $a_vinyle['annee'] ?></span>
