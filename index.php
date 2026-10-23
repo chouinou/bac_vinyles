@@ -1,23 +1,23 @@
 <?php
-// Ci dessous, je déclare la session ouverte
 session_start();
 
-// Les chemins vers mes "tables"
+// ----- DATA -----
 const FICHIER_VINYLES = __DIR__ . "/data/vinyles.php";
 const FICHIER_UTILISATEURS = __DIR__ . "/data/utilisateurs.php";
 
-// J'importe le fichier AltoRouter.php
 require __DIR__ . "/AltoRouter.php";
 
 $router = new AltoRouter();
 
+// ----- ROUTES -----
+
 $router->map('GET', '/', 'accueil');
 $router->map('GET', '/catalogue', 'catalogue');
+$router->map('GET', '/vinyle/[i:id]', 'vinyle');
+$router->map('GET', '/connexion', 'login');
+$router->map('GET', '/inscription', 'register');
 $router->map('GET', '/panier', 'panier');
-$router->map('GET', '/connexion', 'connexion');
-$router->map('GET', '/inscription', 'inscription');
-
-// TODO : toutes les autres routes (voir l'énoncé)
+$router->map('GET', '/admin', 'admin');
 
 $match = $router->match();
 if ($match !== false && is_callable($match['target'])) {
@@ -27,9 +27,7 @@ if ($match !== false && is_callable($match['target'])) {
     erreur();
 }
 
-// =====================================================================
-//  PAGES
-// =====================================================================
+// ----- FUNCTIONS -----
 
 function accueil() {
     require_once(__DIR__ . "/views/accueil.php");
@@ -37,6 +35,17 @@ function accueil() {
 
 function catalogue() {
     require_once(__DIR__ . "/views/catalogue.php");
+}
+
+// CAREFUL HERE OF INDEXATION DIFF BETWEEN TABLE AND PRDUCTS NAME
+// CAREFUL HERE OF INDEXATION DIFF BETWEEN TABLE AND PRDUCTS NAME
+// CAREFUL HERE OF INDEXATION DIFF BETWEEN TABLE AND PRDUCTS NAME
+// CAREFUL HERE OF INDEXATION DIFF BETWEEN TABLE AND PRDUCTS NAME
+// CAREFUL HERE OF INDEXATION DIFF BETWEEN TABLE AND PRDUCTS NAME
+function vinyle($id) {
+    $all_vinyles = require_once(__DIR__ . "/data/vinyles.php");
+    $vinyle = $all_vinyles[$id];
+    require_once(__DIR__ . "/views/vinyle.php");
 }
 
 function panier() {
@@ -54,8 +63,6 @@ function inscription(){
 function erreur() {
     require_once(__DIR__ . "/views/404.php");
 }
-
-// TODO : les autres fonctions (une par route)
 
 // =====================================================================
 //  OUTILS (fourni)
