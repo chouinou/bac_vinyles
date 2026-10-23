@@ -145,6 +145,10 @@
             <p class="surtitre">Content de te revoir</p>
             <h1>Connexion</h1>
 
+            <?php if (isset($_GET['inscrit'])) : ?>
+                <p class="flash flash--succes">Ton compte est créé, tu peux te connecter.</p>
+            <?php endif; ?>
+
             <form action="/auth" method="post">
                 <label for="email">Adresse e-mail
                     <input id="email" name="email" type="email" placeholder="alex@exemple.fr" required>

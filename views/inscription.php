@@ -144,9 +144,20 @@
         <div class="carte-form">
             <p class="surtitre">Rejoins le club</p>
             <h1>Créer un compte</h1>
-
-            <!-- Les erreurs envoyées par PHP dans l'URL : /inscription?erreur=... -->
             
+            <?php if (isset($_GET['erreur'])): ?>
+                <?php if ($_GET['erreur'] == 'champs'): ?>
+                    <p class="flash flash--erreur">Tous les champs sont obligatoires.</p>
+                <?php elseif ($_GET['erreur'] == 'mdp'): ?>
+                    <p class="flash flash--erreur">Le mot de passe doit faire au moins 8 caractères.</p>
+                <?php elseif ($_GET['erreur'] == 'confirmation'): ?>
+                    <p class="flash flash--erreur">Les deux mots de passe sont différents.</p>
+                <?php elseif ($_GET['erreur'] == 'email'): ?>
+                    <p class="flash flash--erreur">Cette adresse e-mail est déjà utilisée.</p>
+                <?php else : ?>
+                    <p class="flash flash--erreur">Une erreur s'est produite.</p>   
+                <?php endif  ?>    
+            <?php endif ?>
             <form id="form-inscription" action="/register" method="post">
                 <label for="name">Nom complet
                     <input id="name" name="name" type="text" placeholder="Alex Martin">
@@ -158,7 +169,7 @@
                     <input id="password" name="password" type="password" placeholder="8 caractères minimum">
                 </label>
                 <label for="confirmation">Confirme le mot de passe
-                    <input id="confirmation" type="password" placeholder="Le même mot de passe">
+                    <input id="confirmation" name="confirmation" type="password" placeholder="Le même mot de passe">
                 </label>
                 <p id="erreur-js" class="flash flash--erreur" style="display: none"></p>
                 <button type="submit" class="bouton bouton--plein">Créer mon compte</button>

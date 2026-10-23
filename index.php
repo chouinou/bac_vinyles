@@ -14,10 +14,12 @@ $router = new AltoRouter();
 $router->map('GET', '/', 'accueil');
 $router->map('GET', '/catalogue', 'catalogue');
 $router->map('GET', '/vinyle/[i:id]', 'vinyle');
-$router->map('GET', '/connexion', 'login');
-$router->map('GET', '/inscription', 'register');
+$router->map('GET', '/connexion', 'connexion');
+$router->map('GET', '/inscription', 'inscription');
 $router->map('GET', '/panier', 'panier');
 $router->map('GET', '/admin', 'admin');
+
+$router->map('POST', '/register', 'register_user');
 
 $match = $router->match();
 if ($match !== false && is_callable($match['target'])) {
@@ -62,11 +64,6 @@ function catalogue() {
     require_once(__DIR__ . "/views/catalogue.php");
 }
 
-// CAREFUL HERE OF INDEXATION DIFF BETWEEN TABLE AND PRDUCTS NAME
-// CAREFUL HERE OF INDEXATION DIFF BETWEEN TABLE AND PRDUCTS NAME
-// CAREFUL HERE OF INDEXATION DIFF BETWEEN TABLE AND PRDUCTS NAME
-// CAREFUL HERE OF INDEXATION DIFF BETWEEN TABLE AND PRDUCTS NAME
-// CAREFUL HERE OF INDEXATION DIFF BETWEEN TABLE AND PRDUCTS NAME
 function vinyle($id) {
     $all_vinyles = require_once(__DIR__ . "/data/vinyles.php");
     $the_vinyle = null ;
@@ -91,8 +88,55 @@ function connexion() {
     require_once(__DIR__ . "/views/connexion.php");
 }
 
-function inscription(){
+function inscription() {
     require_once(__DIR__ . "/views/inscription.php");
+}
+
+function register_user(){
+    // ---- VARS ----
+    $all_users = require_once(__DIR__ . "/data/utilisateurs.php");
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $confirmation = $_POST['confirmation'];
+
+    // ---- ERROR CHECKS ----
+    if (empty($name) || empty($email) || empty($password) || empty($confirmation)) {
+        header('Location: /inscription?erreur=champs') ;
+        return;
+    }
+
+    if (strlen($password) < 8) {
+        header('Location: /inscription?erreur=mdp');
+        return;
+    }
+
+    if ($password !== $confirmation) {
+        header('Location: /inscription?erreur=confirmation') ;
+        return;
+    }
+
+    foreach ($all_users as $a_user) {
+        if ($email == $a_user['email']) {
+            header('Location: /inscription?erreur=email') ;
+            return;
+        }
+    }
+
+    // ---- ADD USER ----
+    $new_user = [
+        'id' => count($all_users) + 1, 
+        'nom' => $name,
+        'email' => $email,
+        'mot_de_passe' => password_hash($password, PASSWORD_DEFAULT),
+        'role' => 'user',
+        'date_inscription' => date('Y-m-d H:i:s')
+    ];
+    $all_users[] = $new_user;
+    print_r($new_user);
+    ecrireTable(FICHIER_UTILISATEURS, $all_users);
+    
+    header('Location: /connexion?inscrit=1');
 }
 
 function erreur() {
