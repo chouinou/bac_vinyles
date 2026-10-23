@@ -12,6 +12,10 @@ require __DIR__ . "/AltoRouter.php";
 $router = new AltoRouter();
 
 $router->map('GET', '/', 'accueil');
+$router->map('GET', '/catalogue', 'catalogue');
+$router->map('GET', '/panier', 'panier');
+$router->map('GET', '/connexion', 'connexion');
+$router->map('GET', '/inscription', 'inscription');
 
 // TODO : toutes les autres routes (voir l'énoncé)
 
@@ -29,6 +33,22 @@ if ($match !== false && is_callable($match['target'])) {
 
 function accueil() {
     require_once(__DIR__ . "/views/accueil.php");
+}
+
+function catalogue() {
+    require_once(__DIR__ . "/views/catalogue.php");
+}
+
+function panier() {
+    require_once(__DIR__ . "/views/panier.php");
+}
+
+function connexion() {
+    require_once(__DIR__ . "/views/connexion.php");
+}
+
+function inscription(){
+    require_once(__DIR__ . "/views/inscription.php");
 }
 
 function erreur() {
