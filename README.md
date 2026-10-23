@@ -25,7 +25,7 @@
 All pages are already implemented in static HTML/CSS.
 No framework, no IA.
 <div align="center"> 
-  <img src="assets/screenshot" alt="screenshot" />
+  <img src="assets/screenshot.png" alt="screenshot" />
 </div>
 
 
