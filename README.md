@@ -84,3 +84,5 @@ Admin dashboard and adding new products --> `views/admin.php`
     <li> * [ ] Product removal from catalog</li>
   </ul>
 </details>
+
+README.md made with the use of [this wonderful template](https://github.com/Louis3797/awesome-readme-template) by [Louis3797](https://github.com/Louis3797).
