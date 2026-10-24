@@ -145,37 +145,47 @@
             <p class="surtitre">Ta sélection</p>
             <h1>Panier</h1>
         </div>
+        <div class="panier">
+            <?php if (empty($lignes)) { ?>
+            <p>Ton panier est vide.</p>
+            <?php }; ?>
+            <div class="tableau">
+                <table>
+                    <tr><th>Vinyle</th><th>Prix</th><th>Quantité</th><th>Sous-total</th></tr>
+                    <?php foreach ($lignes as $item) { ?>
+                    <tr>
+                        <td><strong><?= $item['titre'] ?></strong><br><small><?= $item['artiste'] ?></small></td>
+                        <td><?= $item['prix'] ?></td>
+                        <td><?= $item['quantite'] ?></td>
+                        <td><strong><?= $item['sous-total'] ?> €</strong></td>
+                    </tr>
+                    <?php } ; ?>
+                </table>
+            </div>                                                                                                      
 
-                    <div class="panier">
-                <div class="tableau">
-                    <table>
-                        <tr><th>Vinyle</th><th>Prix</th><th>Quantité</th><th>Sous-total</th></tr>
-                                                    <tr>
-                                <td><strong>Kind of Blue</strong><br><small>Miles Davis</small></td>
-                                <td>25 €</td>
-                                <td>2</td>
-                                <td><strong>50 €</strong></td>
-                            </tr>
-                                                    <tr>
-                                <td><strong>Abbey Road</strong><br><small>The Beatles</small></td>
-                                <td>32 €</td>
-                                <td>1</td>
-                                <td><strong>32 €</strong></td>
-                            </tr>
-                                            </table>
-                </div>
-
-                <aside class="recap">
-                    <div class="recap-ligne"><span>Sous-total</span><span>82 €</span></div>
-                                            <div class="recap-ligne"><span>Livraison</span><span>Offerte</span></div>
-                        <div class="recap-ligne recap-total"><span>Total</span><span>82 €</span></div>
-                    
-                    <form action="/panier/vider" method="post">
-                        <button type="submit" class="lien-bouton">Vider le panier</button>
-                    </form>
-                </aside>
-            </div>
-            </main>
+            <aside class="recap">
+                <div class="recap-ligne"><span>Sous-total</span>
+                <?php if (isset($total_price)): ?>
+                <span><?= $total_price ?> €</span></div>
+                <?php else : ?>
+                <span>0 €</span></div>
+                <?php endif ; ?>
+                <div class="recap-ligne"><span>Livraison</span>
+                <?php if ($shipping_fees == 0):  ?>
+                <span>Offerte</span></div>
+                <?php else : ?>
+                <span><?= $shipping_fees ?> €</span></div>
+                <?php endif ; ?>
+                <div class="recap-ligne recap-total"><span>Total</span><span><?= $price_and_shipping ?> €</span></div>
+                <?php if ($shipping_fees != 0): ?>
+                <div class="recap-ligne"><span>Plus que <?= $missing_for_free_shipping ?> € pour la livraison offerte !</span>
+                <?php endif ; ?>
+                <form action="/panier/vider" method="post">
+                    <button type="submit" class="lien-bouton">Vider le panier</button>
+                </form>
+            </aside>
+        </div>
+    </main>
     <?php require __DIR__ . '/footer.php'; ?>
 </body>
 </html>

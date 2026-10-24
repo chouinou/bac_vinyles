@@ -4,7 +4,10 @@
     <nav class="nav">
         <a href="/">Accueil</a>
         <a href="/catalogue">Catalogue</a>
-        <a href="/panier">Panier <span class="pastille">0</span></a>
+        <?php
+        $shopping_cart_items = isset($_SESSION['panier']) ? count($_SESSION['panier']) : 0;
+        ?>
+        <a href="/panier">Panier <span class="pastille"><?=  $shopping_cart_items ?></span></a>
 
         <?php if (isset($_SESSION['is_authenticated'])) :?>
             <span class="bonjour">Bonjour <?= $_SESSION['user_nom'] ?></span> 
