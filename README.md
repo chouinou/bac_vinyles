@@ -72,7 +72,7 @@ Javascript for command quantity management --> `/views/vinyle.php`
 Register form, errors and functions --> `/views/inscription.php`
 * [X] Mission 7 :
 Log in form, log out, session and responsive navbar --> `/views/connexion.php`
-* [ ] Mission 8 :
+* [X] Mission 8 :
 Shopping cart view and functions --> `/views/panier.php`
 * [ ] Mission 9 :
 Admin dashboard and adding new products --> `views/admin.php`
