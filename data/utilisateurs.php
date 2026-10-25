@@ -19,33 +19,13 @@ return array (
     'role' => 'user',
     'date_inscription' => '2026-09-15 18:30:00',
   ),
-  2 => NULL,
-  3 => NULL,
-  4 => 
-  array (
-    'id' => 5,
-    'nom' => 'Test',
-    'email' => 'zaepokz@zalek.fr',
-    'mot_de_passe' => '$2y$10$kdz.iqwQvtYmJ47UiXxon.9RSuhv6wYFrz.9NADwO2A4HghPe9VwG',
-    'role' => 'user',
-    'date_inscription' => '2026-10-23 13:26:18',
-  ),
-  5 => 
-  array (
-    'id' => 6,
-    'nom' => 'azeezaaz',
-    'email' => '',
-    'mot_de_passe' => '$2y$10$ROMypGjdaE8ur9UGM1bEsOj776w8lb/QYSHoUxSM7RHPYM3.ldzDO',
-    'role' => 'user',
-    'date_inscription' => '2026-10-23 13:28:31',
-  ),
   6 => 
   array (
     'id' => 7,
     'nom' => 'Romain le vrai',
     'email' => 'romain@levrai.fr',
     'mot_de_passe' => '$2y$10$tcc5cjBXaM12IFcbqZZeJOWOx/hwJ8XtZwR3KPl5XG5N/Ctv9pmea',
-    'role' => 'user',
+    'role' => 'admin',
     'date_inscription' => '2026-10-23 14:40:52',
   ),
 );

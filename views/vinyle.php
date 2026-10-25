@@ -187,7 +187,7 @@
                     <?php else : ?>
                     <p class="info">Ce disque est épuisé. Repasse bientôt !</p>
                     <?php endif ?>
-                    <p class="total-live">Total : <strong id="total" data-prix="32">32 €</strong></p>
+                    <p class="total-live">Total : <strong id="total" data-prix="<?= $the_vinyle['prix'] ?> "><?= $the_vinyle['prix'] ?>  €</strong></p>
                 </form>
             </div>
         </div>

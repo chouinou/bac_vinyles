@@ -18,15 +18,17 @@ $router->map('GET', '/catalogue', 'catalogue');
 $router->map('GET', '/vinyle/[i:id]', 'vinyle');
 $router->map('GET', '/connexion', 'connexion');
 $router->map('GET', '/inscription', 'inscription');
-$router->map('GET', '/admin', 'admin');
-
+// ---- REGISTER, LOG IN, LOG OUT ----
 $router->map('POST', '/register', 'register_user');
 $router->map('POST', '/auth', 'authentification');
 $router->map('GET', '/deconnexion', 'deconnexion');
-
+// ---- SHOPPING CART ----
 $router->map('POST', '/panier/ajouter','panier_ajouter');
 $router->map('GET', '/panier', 'panier');
 $router->map('POST', '/panier/vider','panier_vider');
+// ---- ADMIN DASHBOARD ----
+$router->map('GET', '/admin', 'admin');
+$router->map('POST', '/admin/ajouter', 'admin_ajouter');
 
 // -------------------------
 $match = $router->match();
@@ -177,7 +179,6 @@ function register_user(){
         'date_inscription' => date('Y-m-d H:i:s')
     ];
     $all_users[] = $new_user;
-    print_r($new_user);
     ecrireTable(FICHIER_UTILISATEURS, $all_users);
     
     header('Location: /connexion?inscrit=1');
@@ -201,6 +202,7 @@ function panier() {
     $lignes = [] ;
     $total_price = 0 ;
 
+    // ---- LOOP ----
     foreach ($shopping_cart as $item) {
         $id = $item['id'];
         $quantity = $item['quantite'];
@@ -221,6 +223,7 @@ function panier() {
         }
     }
 
+    // ---- CALCS ----
     $shipping_fees = 5 ;
     $free_shipping_threshold = 60 ;
     $missing_for_free_shipping = $free_shipping_threshold - $total_price ;
@@ -243,8 +246,54 @@ function panier_vider() {
     header('Location: /panier');
 }
 
-function admin(){
+// ---- ADMIN DASHBOARD ----
+function admin() {
+    if (!isset($_SESSION['is_authenticated']) || $_SESSION['user_role'] != 'admin') {
+        header('Location: /connexion');
+        return;
+    }
+    $all_vinyles = require_once(__DIR__ . "/data/vinyles.php");
+    $all_users = require_once(__DIR__ . "/data/utilisateurs.php");
     require_once(__DIR__ . "/views/admin.php");
+}
+
+function admin_ajouter() {
+    if (!isset($_SESSION['is_authenticated']) || $_SESSION['user_role'] != 'admin') {
+        header('Location: /connexion');
+        return;
+    }
+    
+    $all_vinyles = require_once(__DIR__ . "/data/vinyles.php");
+    $title = $_POST['titre'];
+    $artist = $_POST['artiste'];
+    $year = $_POST['annee'];
+    $genre = $_POST['genre'];
+    $price = $_POST['prix'];
+    $stock = $_POST['stock'];
+    $color = $_POST['couleur'];
+    $description = $_POST['description'];
+
+    if ($title === '' || $artist === '' || $price <= 0) {
+        header('Location: /admin?erreur=1');
+        return;
+    }
+
+    $new_vinyl = [
+        'id' => count($all_vinyles) + 1,
+        'titre' => $title,
+        'artiste' => $artist,
+        'annee' => $year,
+        'genre' => $genre,
+        'prix' => $price,
+        'stock' => $stock,
+        'couleur' => $color,
+        'description' => $description,
+    ];
+
+    $all_vinyles[] = $new_vinyl;
+    ecrireTable(FICHIER_VINYLES, $all_vinyles);
+    
+    header('Location: /admin?ajout=1');
 }
 
 function erreur() {

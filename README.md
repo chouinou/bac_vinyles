@@ -74,7 +74,7 @@ Register form, errors and functions --> `/views/inscription.php`
 Log in form, log out, session and responsive navbar --> `/views/connexion.php`
 * [X] Mission 8 :
 Shopping cart view and functions --> `/views/panier.php`
-* [ ] Mission 9 :
+* [X] Mission 9 :
 Admin dashboard and adding new products --> `views/admin.php`
 <details>
   <summary>Bonus missions :</summary>

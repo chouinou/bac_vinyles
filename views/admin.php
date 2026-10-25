@@ -146,6 +146,14 @@
             <h1>Administration</h1>
         </div>
 
+        <?php if (isset($_GET['ajout'])): ?>
+        <p class="flash flash--succes">Le vinyle a bien été ajouté au catalogue.</p>
+        <?php endif; ?>
+
+        <?php if (isset($_GET['erreur'])): ?>
+        <p class="flash flash--erreur">Le titre et l'artiste sont obligatoires et le prix doit être supérieur à 0.</p>
+        <?php endif; ?>
+
         <h2>Ajouter un vinyle</h2>
         <form class="carte-form carte-form--large form-grille" action="/admin/ajouter" method="post">
             <label>Titre <input type="text" name="titre"></label>
@@ -167,128 +175,37 @@
             <button type="submit" class="bouton pleine-largeur">Ajouter au catalogue</button>
         </form>
 
-        <h2>Vinyles (12)</h2>
+        <h2>Vinyles (<?= count($all_vinyles) ?>)</h2>
         <div class="tableau">
             <table>
                 <tr><th>Id</th><th>Titre</th><th>Artiste</th><th>Genre</th><th>Prix</th><th>Stock</th></tr>
-                                    <tr class="">
-                        <td>1</td>
-                        <td><a href="/vinyle/1"><strong>Kind of Blue</strong></a></td>
-                        <td>Miles Davis</td>
-                        <td>jazz</td>
-                        <td>25 €</td>
-                        <td>6</td>
+                <?php foreach($all_vinyles as $a_vinyle){ ?>
+                    <tr class="<?= ($a_vinyle['stock'] == 0) ? 'ligne-epuisee' : ''; ?>">
+                        <td><?= $a_vinyle['id'] ?></td>
+                        <td><a href="/vinyle/<?= $a_vinyle['id'] ?>"><strong><?= $a_vinyle['titre'] ?></strong></a></td>
+                        <td><?= $a_vinyle['artiste'] ?></td>
+                        <td><?= $a_vinyle['genre'] ?></td>
+                        <td><?= $a_vinyle['prix'] ?> €</td>
+                        <td><?= $a_vinyle['stock'] ?></td>
                     </tr>
-                                    <tr class="">
-                        <td>2</td>
-                        <td><a href="/vinyle/2"><strong>Rumours</strong></a></td>
-                        <td>Fleetwood Mac</td>
-                        <td>rock</td>
-                        <td>30 €</td>
-                        <td>4</td>
-                    </tr>
-                                    <tr class="">
-                        <td>3</td>
-                        <td><a href="/vinyle/3"><strong>Random Access Memories</strong></a></td>
-                        <td>Daft Punk</td>
-                        <td>electro</td>
-                        <td>40 €</td>
-                        <td>2</td>
-                    </tr>
-                                    <tr class="ligne-epuisee">
-                        <td>4</td>
-                        <td><a href="/vinyle/4"><strong>What's Going On</strong></a></td>
-                        <td>Marvin Gaye</td>
-                        <td>soul</td>
-                        <td>27 €</td>
-                        <td>0</td>
-                    </tr>
-                                    <tr class="">
-                        <td>5</td>
-                        <td><a href="/vinyle/5"><strong>Illmatic</strong></a></td>
-                        <td>Nas</td>
-                        <td>hip-hop</td>
-                        <td>28 €</td>
-                        <td>8</td>
-                    </tr>
-                                    <tr class="">
-                        <td>6</td>
-                        <td><a href="/vinyle/6"><strong>Abbey Road</strong></a></td>
-                        <td>The Beatles</td>
-                        <td>rock</td>
-                        <td>32 €</td>
-                        <td>3</td>
-                    </tr>
-                                    <tr class="">
-                        <td>7</td>
-                        <td><a href="/vinyle/7"><strong>Discovery</strong></a></td>
-                        <td>Daft Punk</td>
-                        <td>electro</td>
-                        <td>35 €</td>
-                        <td>5</td>
-                    </tr>
-                                    <tr class="">
-                        <td>8</td>
-                        <td><a href="/vinyle/8"><strong>A Love Supreme</strong></a></td>
-                        <td>John Coltrane</td>
-                        <td>jazz</td>
-                        <td>23 €</td>
-                        <td>1</td>
-                    </tr>
-                                    <tr class="">
-                        <td>9</td>
-                        <td><a href="/vinyle/9"><strong>Back to Black</strong></a></td>
-                        <td>Amy Winehouse</td>
-                        <td>soul</td>
-                        <td>26 €</td>
-                        <td>7</td>
-                    </tr>
-                                    <tr class="ligne-epuisee">
-                        <td>10</td>
-                        <td><a href="/vinyle/10"><strong>The Low End Theory</strong></a></td>
-                        <td>A Tribe Called Quest</td>
-                        <td>hip-hop</td>
-                        <td>29 €</td>
-                        <td>0</td>
-                    </tr>
-                                    <tr class="">
-                        <td>11</td>
-                        <td><a href="/vinyle/11"><strong>Homework</strong></a></td>
-                        <td>Daft Punk</td>
-                        <td>electro</td>
-                        <td>32 €</td>
-                        <td>4</td>
-                    </tr>
-                                    <tr class="">
-                        <td>12</td>
-                        <td><a href="/vinyle/12"><strong>Nevermind</strong></a></td>
-                        <td>Nirvana</td>
-                        <td>rock</td>
-                        <td>24 €</td>
-                        <td>9</td>
-                    </tr>
-                            </table>
+                <?php } ; ?>
+                </table>
         </div>
 
-        <h2>Utilisateurs (2)</h2>
+        <h2>Utilisateurs (<?= count($all_users) ?>)</h2>
         <div class="tableau">
             <table>
                 <tr><th>Id</th><th>Nom</th><th>E-mail</th><th>Rôle</th><th>Inscrit le</th></tr>
-                                    <tr>
-                        <td>1</td>
-                        <td>Admin Bac à Vinyles</td>
-                        <td>admin@bacavinyles.fr</td>
-                        <td><span class="badge badge--bientot">admin</span></td>
-                        <td>2026-09-01 09:00:00</td>
+                <?php foreach($all_users as $a_user){ ?>
+                    <tr>
+                        <td><?= $a_user['id'] ?></td>
+                        <td><?= $a_user['nom'] ?></td>
+                        <td><?= $a_user['email'] ?></td>
+                        <td><span class="badge <?= ($a_user['role'] == 'admin') ? 'badge--bientot' : 'badge--ok'; ?>"><?= $a_user['role'] ?></span></td>
+                        <td><?= $a_user['date_inscription'] ?></td>
                     </tr>
-                                    <tr>
-                        <td>2</td>
-                        <td>Léa Martin</td>
-                        <td>lea@exemple.fr</td>
-                        <td><span class="badge badge--ok">user</span></td>
-                        <td>2026-09-15 18:30:00</td>
-                    </tr>
-                            </table>
+                <?php } ; ?>    
+                </table>
         </div>
     </main>
     <?php require __DIR__ . '/footer.php'; ?>
